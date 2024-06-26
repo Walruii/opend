@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import homeImage from "../assets/home-img.png";
 import logo from "../assets/logo.png";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom"
-import Gallery from './Gallery'
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import Gallery from "./Gallery";
 import Minter from "./Minter";
+import { opend_backend } from "../../../declarations/opend_backend";
+import { CURRENT_USER_ID } from "./App";
 
 function Header() {
+  async function getNFTS() {
+    const userNFTId = await opend_backend.getOwnedNFTs(CURRENT_USER_ID);
+    console.log(userNFTId);
+  }
+
+  useEffect(() => {
+    getNFTS();
+  }, []);
   return (
     <BrowserRouter>
       <div className="app-root-1">
@@ -20,19 +30,14 @@ function Header() {
             <div className="header-empty-6"></div>
             <div className="header-space-8"></div>
             <button className="ButtonBase-root Button-root Button-text header-navButtons-3">
-              <Link to="/discover">
-                Discover
-              </Link>
+              <Link to="/discover">Discover</Link>
             </button>
             <button className="ButtonBase-root Button-root Button-text header-navButtons-3">
-              <Link to="/minter">
-                Minter
-              </Link>
+              <Link to="/minter">Minter</Link>
             </button>
             <button className="ButtonBase-root Button-root Button-text header-navButtons-3">
-              <Link to="/collection">
-                My NFTs
-              </Link>
+              {" "}
+              <Link to="/collection">My NFTs</Link>
             </button>
           </div>
         </header>
@@ -41,16 +46,11 @@ function Header() {
         <Route
           exact
           path="/"
-          element={<img className="bottom-space" src={homeImage} />} />
-        <Route
-          path="/discover"
-          element={<h1>Discover</h1>} />
-        <Route
-          path="/minter"
-          element={<Minter />} />
-        <Route
-          path="/collection"
-          element={<Gallery title={"My NFTs"} />} />
+          element={<img className="bottom-space" src={homeImage} />}
+        />
+        <Route path="/discover" element={<h1>Discover</h1>} />
+        <Route path="/minter" element={<Minter />} />
+        <Route path="/collection" element={<Gallery title={"My NFTs"} />} />
       </Routes>
     </BrowserRouter>
   );

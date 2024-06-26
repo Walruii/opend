@@ -9,12 +9,8 @@
       "type": "motoko"
     },
     "opend_frontend": {
-      "dependencies": [
-        "opend_backend"
-      ],
-      "source": [
-        "src/opend_frontend/dist"
-      ],
+      "dependencies": ["opend_backend"],
+      "source": ["src/opend_frontend/dist"],
       "type": "assets",
       "workspace": "opend_frontend"
     }
